@@ -1,0 +1,85 @@
+import org.gradle.kotlin.dsl.android
+
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.kapt)
+//    alias(libs.plugins.compose.compiler)
+}
+
+android {
+    namespace = "lol.dutchu.myweather"
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "lol.dutchu.myweather"
+        minSdk = 29
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.kotlin.compose.compiler.get()
+    }
+}
+
+dependencies {
+
+    implementation(libs.androidx.core.ktx)
+    coreLibraryDesugaring(libs.android.tools.desugar)
+
+    //Compose
+//    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    // Optional - Integration with activities
+    implementation(libs.androidx.activity.compose)
+    // Optional - Integration with ViewModels
+    implementation(libs.androidx.compose.viewmodel)
+    debugImplementation(libs.androidx.ui.tooling)
+    androidTestImplementation(libs.androidx.compose.ui.junit4)
+
+    //Dagger - Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android)
+    implementation(libs.hilt.lifecycle.viewmodel)
+    kapt(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+
+    // Location Services
+    implementation(libs.android.gms.play.location)
+
+    // Retrofit
+    implementation(libs.retrofit.core2)
+    implementation(libs.retrofit.converter.moshi)
+    implementation(libs.retrofit.okhttp3)
+
+            //Tests
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+}
