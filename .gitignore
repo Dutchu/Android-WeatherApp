@@ -1,4 +1,6 @@
 *.iml
+.idea/
+gradle/
 .gradle
 /local.properties
 /.idea/caches
@@ -13,3 +15,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Windows
+*.ps1
+*.txt
