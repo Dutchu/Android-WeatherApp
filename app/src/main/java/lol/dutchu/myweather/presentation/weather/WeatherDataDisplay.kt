@@ -1,4 +1,4 @@
-package lol.dutchu.myweather.presentation
+package lol.dutchu.myweather.presentation.weather
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

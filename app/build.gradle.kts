@@ -1,8 +1,9 @@
 plugins {
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -19,11 +20,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildTypes {
         release {
@@ -48,10 +49,6 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    // Allow references to generated code for Hilt
-    kapt {
-        correctErrorTypes = true
-    }
 }
 
 dependencies {
@@ -66,7 +63,6 @@ dependencies {
     androidTestImplementation(composeBom)
 
 
-    implementation(libs.androidx.material)
     // or skip Material Design and build directly on top of foundational components
     implementation(libs.androidx.foundation)
     // or only import the main APIs for the underlying toolkit systems,
@@ -82,11 +78,14 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     // Optional - Integration with ViewModels
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
+//    implementation(libs.compose.material3)
+//    implementation(libs.compose.icons.core)
+    implementation(libs.androidx.material)
+    implementation(libs.compose.icons.extended)
 
     //Dagger - Hilt
     implementation(libs.dagger.hilt.android)
-    kapt(libs.dagger.hilt.compiler)
+    ksp(libs.dagger.hilt.compiler)
 
     // -- OPTIONAL: Hilt + Compose Navigation --
     // (Only if you use Jetpack Compose’s Navigation with Hilt)
@@ -95,14 +94,14 @@ dependencies {
     // -- OPTIONAL: Hilt + WorkManager --
     // (Only if you inject Worker classes with Hilt)
     implementation(libs.hilt.work)
-    kapt(libs.hilt.work.compiler)
+    ksp(libs.hilt.work.compiler)
 
     // Retrofit
     implementation(libs.retrofit.core2)
     implementation(libs.retrofit.converter.moshi)
     implementation(libs.retrofit.okhttp3)
-    implementation("com.squareup.moshi:moshi:1.15.0")         // or latest
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")   // or latest
+    implementation(libs.moshi)         // or latest
+    ksp(libs.moshi.kotlin.codegen)   // or latest
 
 
     // Location Services

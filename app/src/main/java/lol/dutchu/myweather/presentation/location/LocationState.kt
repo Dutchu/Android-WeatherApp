@@ -1,9 +1,10 @@
-package lol.dutchu.myweather.presentation
+package lol.dutchu.myweather.presentation.location
 
 import lol.dutchu.myweather.domain.weather.WeatherInfo
 
-data class WeatherState(
+data class LocationState(
     val weatherInfo: WeatherInfo? = null,
+    val locationName: String? = null,
     val isLoading: Boolean = false,
     val error: String? = null
 )

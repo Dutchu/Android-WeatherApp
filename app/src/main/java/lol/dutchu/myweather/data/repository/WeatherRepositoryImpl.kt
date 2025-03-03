@@ -11,13 +11,13 @@ import javax.inject.Inject
 class WeatherRepositoryImpl @Inject constructor(
     private val api: WeatherApi
 ) : WeatherRepository {
-    override suspend fun getWeatherData(
+    override suspend fun getWeatherInfo(
         latitude: Double,
         longitude: Double
     ): Resource<WeatherInfo> {
         return try {
             Resource.Success(
-                api.getWeatherInfo(
+                api.fetchWeatherData(
                     latitude,
                     longitude
                 ).toWeatherInfo()
